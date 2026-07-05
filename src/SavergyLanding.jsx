@@ -188,6 +188,12 @@ function ArtInfra() {
   );
 }
 
+const EUROPE_COAST =
+  "M50,335 L42,395 L65,450 L115,462 L150,428 L132,378 L165,340 L150,298 L178,265 " +
+  "L218,288 L232,318 L228,358 L238,398 L258,428 L275,443 L292,432 L278,395 L268,352 L248,312 " +
+  "L255,280 L300,265 L340,245 L365,210 L350,165 L330,150 L295,115 L265,130 L240,150 " +
+  "L215,170 L195,175 L175,205 L185,230 L165,245 L150,270 L120,260 L100,290 L90,320 Z";
+
 function EuropeMap() {
   // Simplified marker map (illustrative, not to scale)
   const cities = [
@@ -208,6 +214,11 @@ function EuropeMap() {
         {Array.from({ length: 9 }).map((_, i) => (
           <line key={`h${i}`} x1="15" y1={80 + i * 45} x2="445" y2={80 + i * 45} opacity="0.35" />
         ))}
+      </g>
+      <path d={EUROPE_COAST} fill="#151B24" stroke="#2E3644" strokeWidth="1.4" strokeLinejoin="round" />
+      <g stroke="#2E3644" strokeWidth="1" strokeDasharray="3,3" opacity="0.8">
+        <path d="M88,323 L160,332" />
+        <path d="M214,289 L256,281" />
       </g>
       {cities.map((c) => (
         <g key={c.label}>
