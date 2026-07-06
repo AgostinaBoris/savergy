@@ -188,42 +188,58 @@ function ArtInfra() {
   );
 }
 
-const EUROPE_COAST =
-  "M50,335 L42,395 L65,450 L115,462 L150,428 L132,378 L165,340 L150,298 L178,265 " +
-  "L218,288 L232,318 L228,358 L238,398 L258,428 L275,443 L292,432 L278,395 L268,352 L248,312 " +
-  "L255,280 L300,265 L340,245 L365,210 L350,165 L330,150 L295,115 L265,130 L240,150 " +
-  "L215,170 L195,175 L175,205 L185,230 L165,245 L150,270 L120,260 L100,290 L90,320 Z";
+// Country outlines projected from real coordinates (Natural Earth, simplified),
+// equirectangular projection. Not a political/diplomatic reference.
+const EU_PRT = "M22.5,189.0 L32.7,183.7 L36.0,190.1 L53.7,188.9 L57.4,195.5 L51.3,199.1 L48.5,217.6 L42.8,218.7 L48.1,226.6 L44.4,235.3 L49.0,239.2 L42.3,247.7 L43.4,252.1 L38.1,255.5 L31.1,253.7 L24.3,255.1 L26.3,244.8 L25.1,236.7 L19.2,235.4 L16.0,230.4 L17.1,221.8 L22.3,217.0 L26.0,203.7 L22.5,189.0 Z";
+const EU_ESP = "M22.5,189.0 L23.2,179.6 L17.8,173.8 L36.4,164.3 L84.4,168.9 L116.7,168.6 L121.9,173.7 L146.2,179.7 L151.0,176.9 L165.9,182.8 L181.2,181.1 L181.9,188.8 L169.4,197.6 L152.4,200.4 L151.3,204.8 L143.2,212.1 L138.1,222.9 L143.2,230.4 L135.6,236.3 L132.7,244.9 L122.8,247.5 L113.4,257.7 L84.1,257.6 L70.8,267.3 L64.3,266.2 L55.7,254.1 L43.4,252.1 L42.3,247.7 L49.0,239.2 L44.4,235.3 L48.1,226.6 L42.8,218.7 L48.5,217.6 L51.3,199.1 L57.4,195.5 L53.7,188.9 L36.0,190.1 L32.7,183.7 L22.5,189.0 Z";
+const EU_FRA = "M189.1,76.8 L198.3,83.0 L205.1,82.0 L229.6,92.3 L248.7,94.7 L242.0,103.8 L240.3,113.2 L236.7,115.4 L230.7,114.2 L231.1,117.6 L221.4,125.0 L221.2,131.0 L227.6,128.9 L232.1,134.7 L231.5,138.4 L235.4,143.4 L230.9,147.4 L234.3,157.6 L241.4,159.3 L239.9,165.0 L227.9,172.5 L201.9,168.9 L182.7,173.2 L181.2,181.1 L165.9,182.8 L151.0,176.9 L146.2,179.7 L121.9,173.7 L116.7,168.6 L123.5,160.7 L126.0,134.4 L102.6,113.8 L82.5,108.8 L81.1,99.1 L98.2,96.3 L120.4,99.7 L116.2,84.7 L128.7,90.4 L159.4,80.1 L163.4,69.3 L174.9,66.6 L176.8,71.3 L183.0,71.5 L189.1,76.8 Z";
+const EU_BEL = "M185.5,64.0 L195.2,65.0 L207.4,62.3 L223.0,71.2 L221.5,80.1 L218.1,80.6 L216.6,88.0 L205.1,82.0 L198.3,83.0 L183.0,71.5 L176.8,71.3 L174.9,66.6 L185.5,64.0 Z";
+const EU_NLD = "M221.9,35.4 L232.9,35.8 L235.4,40.3 L228.7,57.3 L220.8,57.3 L223.0,71.2 L207.4,62.3 L195.2,65.0 L185.5,64.0 L192.3,60.4 L203.9,41.0 L221.9,35.4 Z";
+const EU_LUX = "M221.5,80.1 L224.2,83.1 L223.4,88.9 L216.6,88.0 L218.1,80.6 L221.5,80.1 Z";
+const EU_CHE = "M268.4,114.4 L266.9,120.0 L279.6,122.8 L278.5,128.2 L272.7,130.4 L263.0,128.8 L260.1,134.1 L253.8,134.5 L251.5,132.4 L244.1,136.9 L237.8,137.5 L232.1,134.7 L227.6,128.9 L221.2,131.0 L221.4,125.0 L231.1,117.6 L230.7,114.2 L236.7,115.4 L240.3,113.2 L251.5,113.3 L254.2,110.4 L268.4,114.4 Z";
+const EU_AUT = "M365.9,106.5 L364.9,111.9 L357.4,112.0 L360.0,114.8 L353.1,125.6 L341.6,125.9 L334.9,128.9 L305.1,124.4 L302.2,119.9 L289.1,122.1 L287.6,124.7 L266.9,120.0 L268.4,114.4 L272.4,113.7 L279.1,117.4 L280.9,113.9 L292.6,114.5 L302.0,112.1 L312.5,115.2 L311.8,104.4 L316.6,102.7 L321.2,96.6 L331.0,100.8 L343.1,94.5 L353.3,98.5 L359.5,97.8 L365.6,100.3 L365.9,106.5 Z";
+const EU_DEU = "M272.7,16.0 L273.0,21.1 L286.3,24.2 L286.2,28.9 L307.0,22.8 L321.9,28.0 L328.1,32.2 L331.2,38.9 L327.5,42.4 L332.3,47.1 L335.6,54.2 L334.6,58.7 L340.0,67.2 L334.1,68.5 L330.6,67.0 L303.3,78.3 L307.0,87.8 L321.2,96.6 L316.6,102.7 L311.8,104.4 L312.5,115.2 L302.0,112.1 L292.6,114.5 L280.9,113.9 L279.1,117.4 L272.4,113.7 L254.2,110.4 L251.5,113.3 L240.3,113.2 L242.0,103.8 L248.7,94.7 L229.6,92.3 L223.4,88.9 L220.8,57.3 L228.7,57.3 L232.1,52.4 L235.4,40.3 L232.9,35.8 L235.5,33.0 L246.5,32.3 L249.0,35.2 L257.9,28.7 L254.9,23.8 L254.3,16.3 L264.3,18.0 L272.7,16.0 Z";
+const EU_ITA_0 = "M305.1,124.4 L324.0,127.9 L322.6,134.4 L325.7,140.0 L315.2,138.1 L304.5,142.7 L303.6,153.1 L307.9,159.8 L320.3,166.4 L326.9,177.3 L341.6,188.0 L352.0,187.9 L355.2,190.8 L351.5,193.4 L373.0,202.2 L385.7,211.5 L383.2,216.3 L375.9,210.1 L364.4,207.9 L358.9,216.5 L368.4,221.4 L366.8,228.3 L361.3,229.0 L354.3,240.4 L348.8,241.4 L351.5,230.3 L354.4,227.4 L345.2,213.1 L339.7,211.5 L335.8,205.8 L327.4,203.4 L321.6,198.1 L311.9,197.2 L289.5,182.7 L280.5,175.1 L276.4,162.0 L259.1,156.1 L239.9,165.0 L241.4,159.3 L234.3,157.6 L230.9,147.4 L235.4,143.4 L231.5,138.4 L232.1,134.7 L237.8,137.5 L244.1,136.9 L251.5,132.4 L253.8,134.5 L260.1,134.1 L263.0,128.8 L272.7,130.4 L278.5,128.2 L279.6,122.8 L287.6,124.7 L289.1,122.1 L302.2,119.9 L305.1,124.4 Z";
+const EU_ITA_1 = "M346.6,237.1 L341.9,247.5 L343.8,251.6 L341.1,258.4 L305.8,245.3 L307.7,238.5 L323.1,239.7 L346.6,237.1 Z";
+const EU_ITA_2 = "M263.3,197.8 L271.2,207.2 L269.4,224.6 L263.4,223.8 L258.0,228.2 L253.0,224.7 L252.5,208.8 L249.5,201.2 L256.7,201.9 L263.3,197.8 Z";
+
+const EUROPE_COUNTRIES = [
+  EU_PRT, EU_ESP, EU_FRA, EU_BEL, EU_NLD, EU_LUX, EU_CHE, EU_AUT, EU_DEU,
+  EU_ITA_0, EU_ITA_1, EU_ITA_2,
+];
+
+const EUROPE_MAP_W = 401.7;
+const EUROPE_MAP_H = 283.3;
 
 function EuropeMap() {
-  // Simplified marker map (illustrative, not to scale)
+  // City markers projected with the same equirectangular transform as the
+  // country outlines above, so they land in the right place automatically.
   const cities = [
-    { x: 108.7, y: 390.5, label: "MADRID", primary: true, big: true },
-    { x: 178.4, y: 250.8, label: "PARÍS" },
-    { x: 305.6, y: 190.0, label: "BERLÍN" },
-    { x: 257.1, y: 307.0, label: "MILÁN" },
-    { x: 207.7, y: 192.5, label: "ÁMSTERDAM" },
-    { x: 201.4, y: 217.7, label: "BRUSELAS" },
+    { x: 92.9, y: 208.3, label: "MADRID", primary: true, big: true },
+    { x: 172.8, y: 96.9, label: "PARÍS" },
+    { x: 318.7, y: 48.5, label: "BERLÍN" },
+    { x: 263.1, y: 141.6, label: "MILÁN" },
+    { x: 206.5, y: 50.5, label: "ÁMSTERDAM" },
+    { x: 199.2, y: 70.6, label: "BRUSELAS" },
   ];
   return (
-    <svg viewBox="15 40 430 440" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de Europa">
-      <rect x="15" y="40" width="430" height="440" fill="#0C0F14" />
-      <g stroke="#232B37" strokeWidth="1">
-        {Array.from({ length: 9 }).map((_, i) => (
-          <line key={`v${i}`} x1={60 + i * 45} y1="40" x2={60 + i * 45} y2="480" opacity="0.35" />
+    <svg viewBox={`0 0 ${EUROPE_MAP_W} ${EUROPE_MAP_H}`} fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de Europa">
+      <rect x="0" y="0" width={EUROPE_MAP_W} height={EUROPE_MAP_H} fill="#0C0F14" />
+      <g stroke="#232B37" strokeWidth="1" opacity="0.35">
+        {Array.from({ length: 11 }).map((_, i) => (
+          <line key={`v${i}`} x1={i * 40} y1="0" x2={i * 40} y2={EUROPE_MAP_H} />
         ))}
-        {Array.from({ length: 9 }).map((_, i) => (
-          <line key={`h${i}`} x1="15" y1={80 + i * 45} x2="445" y2={80 + i * 45} opacity="0.35" />
+        {Array.from({ length: 8 }).map((_, i) => (
+          <line key={`h${i}`} x1="0" y1={i * 40} x2={EUROPE_MAP_W} y2={i * 40} />
         ))}
       </g>
-      <path d={EUROPE_COAST} fill="#151B24" stroke="#2E3644" strokeWidth="1.4" strokeLinejoin="round" />
-      <g stroke="#2E3644" strokeWidth="1" strokeDasharray="3,3" opacity="0.8">
-        <path d="M88,323 L160,332" />
-        <path d="M214,289 L256,281" />
-      </g>
+      {EUROPE_COUNTRIES.map((d, i) => (
+        <path key={i} d={d} fill="#151B24" stroke="#2E3644" strokeWidth="1.2" strokeLinejoin="round" />
+      ))}
       {cities.map((c) => (
         <g key={c.label}>
           <circle cx={c.x} cy={c.y} r={c.big ? 4.5 : 3} fill={c.primary ? "#00D4AA" : "#0C0F14"} stroke={c.primary ? "none" : "#6B7280"} strokeWidth="1.4" />
-          <text x={c.x} y={c.y + (c.big ? 19 : -8)} textAnchor="middle" fontSize={c.big ? 11 : 9.5} fontWeight={c.big ? 600 : 400} fill={c.primary ? "#F5F7FA" : "#98A0AC"} letterSpacing="1.5">
+          <text x={c.x} y={c.y + (c.big ? 17 : -7)} textAnchor="middle" fontSize={c.big ? 11 : 9.5} fontWeight={c.big ? 600 : 400} fill={c.primary ? "#F5F7FA" : "#98A0AC"} letterSpacing="1.5">
             {c.label}
           </text>
         </g>
