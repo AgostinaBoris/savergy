@@ -1,5 +1,5 @@
-Aquí tenés el código transcripto tal cual aparece en la captura:
-yamlname: Deploy to GitHub Pages
+
+yaml name: Deploy to GitHub
 
 on:
   push:
